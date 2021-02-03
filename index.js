@@ -12,13 +12,12 @@ $("body").keydown(function(){
   }
 });
 
-
 function startGame(level){
   lastControlledItem=0;
   $("#level-title").text("Level "+level);
   var rnd = Math.floor(Math.random()*4)+1;
   correctArray.push(rnd);
-  pressColor(rnd);
+  soundAndAnimation(rnd);
   $(".btn").on("click",function(event){
     userInput(event);
   });
@@ -41,8 +40,7 @@ function userInput(buttonPressed){
       pressedCode = 4;
       break;
   }
-  pressColor(pressedCode);
-  //alert("correctArray[lastControlledItem]="+correctArray[lastControlledItem]+"  pressedCode="+pressedCode);
+  soundAndAnimation(pressedCode);
   if (correctArray[lastControlledItem] === pressedCode) {
     lastControlledItem++;
     if (correctArray.length === lastControlledItem) {
@@ -67,31 +65,11 @@ function gameOver(){
   setTimeout(function(){$("body").removeClass("game-over");},300);
 }
 
-function pressColor(number){
-  switch (number) {
-    case 1:
-      setTimeout(function(){$("#green").addClass("pressed");},100);
-      var sound = new Audio("sounds/green.mp3");
-      sound.play();
-      setTimeout(function(){$("#green").removeClass("pressed");},250);
-      break;
-    case 2:
-      setTimeout(function(){$("#red").addClass("pressed");},100);
-      var sound = new Audio("sounds/red.mp3");
-      sound.play();
-      setTimeout(function(){$("#red").removeClass("pressed");},250);
-      break;
-    case 3:
-      setTimeout(function(){$("#yellow").addClass("pressed");},100);
-      var sound = new Audio("sounds/yellow.mp3");
-      sound.play();
-      setTimeout(function(){$("#yellow").removeClass("pressed");},250);
-      break;
-    case 4:
-      setTimeout(function(){$("#blue").addClass("pressed");},100);
-      var sound = new Audio("sounds/blue.mp3");
-      sound.play();
-      setTimeout(function(){$("#blue").removeClass("pressed");},250);
-      break;
-  };
+function soundAndAnimation(number){
+  var colors = ["green","red","yellow","blue"];
+  var color = colors[number];
+  setTimeout(function(){$("#"+color).addClass("pressed");},100);
+  var sound = new Audio("sounds/"+color+".mp3");
+  sound.play();
+  setTimeout(function(){$("#"+color).removeClass("pressed");},250);
 }

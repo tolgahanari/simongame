@@ -67,7 +67,7 @@ function gameOver(){
 
 function soundAndAnimation(number){
   var colors = ["green","red","yellow","blue"];
-  var color = colors[number];
+  var color = colors[number-1];
   setTimeout(function(){$("#"+color).addClass("pressed");},100);
   var sound = new Audio("sounds/"+color+".mp3");
   sound.play();
